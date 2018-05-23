@@ -50,12 +50,12 @@
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.madeByFl1kToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.madeByFl1kToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -124,11 +124,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(583, 212);
+            this.button1.Location = new System.Drawing.Point(464, 218);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 43);
+            this.button1.Size = new System.Drawing.Size(246, 43);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Copy";
+            this.button1.Text = "Search and Copy";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -249,6 +249,21 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.madeByFl1kToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // madeByFl1kToolStripMenuItem
+            // 
+            this.madeByFl1kToolStripMenuItem.Name = "madeByFl1kToolStripMenuItem";
+            this.madeByFl1kToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.madeByFl1kToolStripMenuItem.Text = "Made by fl1k";
+            this.madeByFl1kToolStripMenuItem.Click += new System.EventHandler(this.madeByFl1kToolStripMenuItem_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radioButton1);
@@ -289,21 +304,6 @@
             this.label4.Size = new System.Drawing.Size(234, 13);
             this.label4.TabIndex = 17;
             this.label4.Text = "Filetype must contain a dot (.txt / .png / .jpg etc)";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.madeByFl1kToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // madeByFl1kToolStripMenuItem
-            // 
-            this.madeByFl1kToolStripMenuItem.Name = "madeByFl1kToolStripMenuItem";
-            this.madeByFl1kToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.madeByFl1kToolStripMenuItem.Text = "Made by fl1k";
-            this.madeByFl1kToolStripMenuItem.Click += new System.EventHandler(this.madeByFl1kToolStripMenuItem_Click);
             // 
             // Form1
             // 

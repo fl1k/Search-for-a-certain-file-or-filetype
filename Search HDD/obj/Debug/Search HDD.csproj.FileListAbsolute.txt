@@ -1,0 +1,10 @@
+c:\users\fl1k\source\repos\Search HDD\Search HDD\bin\Debug\Search HDD.exe.config
+c:\users\fl1k\source\repos\Search HDD\Search HDD\bin\Debug\Search HDD.exe
+c:\users\fl1k\source\repos\Search HDD\Search HDD\bin\Debug\Search HDD.pdb
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search_HDD.Form1.resources
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search_HDD.Properties.Resources.resources
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search HDD.csproj.GenerateResource.Cache
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search HDD.csproj.CoreCompileInputs.cache
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search HDD.exe
+c:\users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search HDD.pdb
+C:\Users\fl1k\source\repos\Search HDD\Search HDD\obj\Debug\Search HDD.csprojAssemblyReference.cache

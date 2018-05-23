@@ -21,6 +21,12 @@ namespace Search_HDD
             CheckForFormUpdates();
         }
 
+
+        /////////////////////////////////////////////////////////////////
+        // Code is very messy because I'm lazy and I don't like forms. //
+        /////////////////////////////////////////////////////////////////
+
+
         [DllImport("kernel32.dll")]
         static extern IntPtr GetConsoleWindow();
 
@@ -72,29 +78,48 @@ namespace Search_HDD
             CheckForFormUpdates();
         }
 
-        private static void SearchDirectories(string path, string term, string copypath)
+        private static void SearchDirectories(string path, string term, string copypath, string k)
         {
             List<string> files = new List<string>();
-            foreach (string file in Directory.EnumerateFiles(path).Where(x => x.Contains(term)))
+            if (k == "filename")
             {
-                try
+                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.Contains(term)))
                 {
-                    files.Add(file);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Added {file}");
-                }
-                catch (Exception ex)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine(ex.Message);
+                    try
+                    {
+                        files.Add(file);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Added {file}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
-
+            else if (k == "filetype")
+            {
+                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.EndsWith(term)))
+                {
+                    try
+                    {
+                        files.Add(file);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Added {file}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
             foreach (string subdir in Directory.EnumerateDirectories(path))
             {
                 try
                 {
-                    SearchDirectories(subdir, term, copypath);
+                    SearchDirectories(subdir, term, copypath, k);
                 }
                 catch (Exception ex)
                 {
@@ -114,6 +139,7 @@ namespace Search_HDD
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            radioButton1.Checked = true;
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
             CheckForFormUpdates();
@@ -130,10 +156,12 @@ namespace Search_HDD
             {
                 var handle = GetConsoleWindow();
                 ShowWindow(handle, SW_SHOW);
-
                 foreach (string file in listBox1.Items)
                 {
-                    SearchDirectories(file, textBox2.Text, textBox1.Text);
+                    if (radioButton2.Checked)
+                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filename");
+                    else if(radioButton1.Checked)
+                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype");
                 }
             }
         }
@@ -143,9 +171,7 @@ namespace Search_HDD
             using (var folderDialog = new FolderBrowserDialog())
             {
                 if (folderDialog.ShowDialog() == DialogResult.OK)
-                {
                     textBox1.Text = folderDialog.SelectedPath;
-                }
             }
         }
 
@@ -154,9 +180,7 @@ namespace Search_HDD
             using (var folderDialog = new FolderBrowserDialog())
             {
                 if (folderDialog.ShowDialog() == DialogResult.OK)
-                {
                     listBox1.Items.Add(folderDialog.SelectedPath);
-                }
             }
         }
 
@@ -171,9 +195,7 @@ namespace Search_HDD
             using (var folderDialog = new FolderBrowserDialog())
             {
                 if (folderDialog.ShowDialog() == DialogResult.OK)
-                {
                     textBox1.Text = folderDialog.SelectedPath;
-                }
             }
         }
 
@@ -181,11 +203,6 @@ namespace Search_HDD
         {
             Environment.Exit(0);
             this.Close();
-        }
-
-        private void hideUnhideConsoleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
@@ -198,6 +215,11 @@ namespace Search_HDD
         {
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
+        }
+
+        private void madeByFl1kToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/fl1k");
         }
     }
 }

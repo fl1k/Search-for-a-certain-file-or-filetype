@@ -64,6 +64,11 @@ namespace Search_HDD
                         listBox1.Items.Add(folderDialog.SelectedPath);
                     else
                     {
+                        //
+
+                        // Add listBox filter
+
+                        //
                         for (int i = 0; i < listBox1.Items.Count; i++)
                         {
                             if (folderDialog.SelectedPath.Contains(listBox1.Items[i].ToString()))

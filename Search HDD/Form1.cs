@@ -53,16 +53,33 @@ namespace Search_HDD
                 btnOpen.Enabled = true;
             }
         }
-
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void pathlbcheck()
         {
+            bool contains = false;
             using (var folderDialog = new FolderBrowserDialog())
             {
                 if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
-                    listBox1.Items.Add(folderDialog.SelectedPath);
+                    if (listBox1.Items.Count == 0)
+                        listBox1.Items.Add(folderDialog.SelectedPath);
+                    else
+                    {
+                        for (int i = 0; i < listBox1.Items.Count; i++)
+                        {
+                            if (folderDialog.SelectedPath.Contains(listBox1.Items[i].ToString()))
+                                contains = true;
+                        }
+                        if (contains == false)
+                            listBox1.Items.Add(folderDialog.SelectedPath);
+                        else
+                            MessageBox.Show("Path already included", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+        }
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            pathlbcheck();
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
@@ -127,11 +144,12 @@ namespace Search_HDD
                     Console.WriteLine(ex.Message);
                 }
             }
+
             foreach (string file in files)
             {
-                string name = Path.GetFileName(file);
-                string dest = Path.Combine(copypath, name);
+                string dest = Path.Combine(copypath, Path.GetFileName(file));
                 File.Copy(file, dest, true);
+                Console.WriteLine($"Copied {file}");
             }
             Console.ResetColor();
         }
@@ -160,7 +178,7 @@ namespace Search_HDD
                 {
                     if (radioButton2.Checked)
                         SearchDirectories(file, textBox2.Text, textBox1.Text, "filename");
-                    else if(radioButton1.Checked)
+                    else if (radioButton1.Checked)
                         SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype");
                 }
 
@@ -180,11 +198,7 @@ namespace Search_HDD
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var folderDialog = new FolderBrowserDialog())
-            {
-                if (folderDialog.ShowDialog() == DialogResult.OK)
-                    listBox1.Items.Add(folderDialog.SelectedPath);
-            }
+            pathlbcheck();
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

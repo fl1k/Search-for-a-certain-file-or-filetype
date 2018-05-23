@@ -148,9 +148,9 @@ namespace Search_HDD
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (listBox1.Items.Count == 0 || textBox2.TextLength == 0 || textBox1.TextLength == 0)
+            if (listBox1.Items.Count == 0 || textBox2.TextLength == 0 || textBox1.TextLength == 0 || !(Directory.Exists(textBox1.Text)))
             {
-                MessageBox.Show("Please fill all input boxes", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please check input boxes for mistakes. \n(Copy path isn't valid / No term / No search path)", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -163,6 +163,9 @@ namespace Search_HDD
                     else if(radioButton1.Checked)
                         SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype");
                 }
+
+                Console.WriteLine("Done..");
+                Console.WriteLine("Closing the console will also close the form, if you want to close it go to File > Console > Hide");
             }
         }
 

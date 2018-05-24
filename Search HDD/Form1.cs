@@ -21,11 +21,9 @@ namespace Search_HDD
             CheckForFormUpdates();
         }
 
-
         /////////////////////////////////////////////////////////////////
         // Code is very messy because I'm lazy and I don't like forms. //
         /////////////////////////////////////////////////////////////////
-
 
         [DllImport("kernel32.dll")]
         static extern IntPtr GetConsoleWindow();
@@ -35,11 +33,12 @@ namespace Search_HDD
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
 
-
+        bool SearchEverything;
         private void CheckForFormUpdates()
         {
             if (radioBtnEverything.Checked)
             {
+                SearchEverything = true;
                 listBox1.Items.Clear();
                 btnOpen.Enabled = false;
                 foreach (DriveInfo d in DriveInfo.GetDrives().Where(x => x.IsReady))
@@ -49,6 +48,7 @@ namespace Search_HDD
             }
             else if (radioBtnSelect.Checked)
             {
+                SearchEverything = false;
                 listBox1.Items.Clear();
                 btnOpen.Enabled = true;
             }
@@ -64,16 +64,23 @@ namespace Search_HDD
                         listBox1.Items.Add(folderDialog.SelectedPath);
                     else
                     {
-                        //
-
-                        // Add listBox filter
-
-                        //
+                        for (int j = 0; j < 2; j++)
+                        {
+                            for (int i = 0; i < listBox1.Items.Count; i++)
+                            {
+                                if (listBox1.Items[i].ToString().Contains(folderDialog.SelectedPath))
+                                {
+                                    listBox1.Items.Remove(listBox1.Items[i].ToString());
+                                    i = 0;
+                                }
+                            }
+                        }
                         for (int i = 0; i < listBox1.Items.Count; i++)
                         {
                             if (folderDialog.SelectedPath.Contains(listBox1.Items[i].ToString()))
                                 contains = true;
                         }
+
                         if (contains == false)
                             listBox1.Items.Add(folderDialog.SelectedPath);
                         else
@@ -89,10 +96,8 @@ namespace Search_HDD
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null)
-            {
+            if (listBox1.SelectedItem != null && SearchEverything == false)
                 listBox1.Items.Remove(listBox1.SelectedItem);
-            }
         }
 
         private void radioBtnEverything_CheckedChanged(object sender, EventArgs e)

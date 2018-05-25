@@ -33,12 +33,10 @@ namespace Search_HDD
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
 
-        bool SearchEverything;
         private void CheckForFormUpdates()
         {
             if (radioBtnEverything.Checked)
             {
-                SearchEverything = true;
                 listBox1.Items.Clear();
                 btnOpen.Enabled = false;
                 foreach (DriveInfo d in DriveInfo.GetDrives().Where(x => x.IsReady))
@@ -48,8 +46,6 @@ namespace Search_HDD
             }
             else if (radioBtnSelect.Checked)
             {
-                SearchEverything = false;
-                listBox1.Items.Clear();
                 btnOpen.Enabled = true;
             }
         }
@@ -96,8 +92,10 @@ namespace Search_HDD
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null && SearchEverything == false)
+            if (listBox1.SelectedItem != null)
                 listBox1.Items.Remove(listBox1.SelectedItem);
+            if (radioBtnEverything.Checked)
+                radioBtnSelect.Checked = true;
         }
 
         private void radioBtnEverything_CheckedChanged(object sender, EventArgs e)
@@ -247,6 +245,12 @@ namespace Search_HDD
         private void madeByFl1kToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/fl1k");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            radioBtnSelect.Checked = true;
         }
     }
 }

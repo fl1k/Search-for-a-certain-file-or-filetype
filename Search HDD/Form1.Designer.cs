@@ -56,6 +56,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -87,11 +88,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 38);
+            this.label1.Location = new System.Drawing.Point(319, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 13);
+            this.label1.Size = new System.Drawing.Size(183, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Paths (Double click to delete)";
+            this.label1.Text = "Paths (Double click an item to delete)";
             // 
             // btnOpen
             // 
@@ -305,11 +306,22 @@
             this.label4.TabIndex = 17;
             this.label4.Text = "Filetype must contain a dot (.txt / .png / .jpg etc)";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(361, 114);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 18;
+            this.button3.Text = "Clear";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 292);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
@@ -367,6 +379,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem madeByFl1kToolStripMenuItem;
+        private System.Windows.Forms.Button button3;
     }
 }
 

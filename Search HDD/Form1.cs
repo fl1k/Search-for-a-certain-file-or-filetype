@@ -108,7 +108,7 @@ namespace Search_HDD
             List<string> files = new List<string>();
             if (k == "filename")
             {
-                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.Contains(term)))
+                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().Contains(term.ToLower())))
                 {
                     try
                     {
@@ -125,7 +125,7 @@ namespace Search_HDD
             }
             else if (k == "filetype")
             {
-                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.EndsWith(term)))
+                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().EndsWith(term.ToLower())))
                 {
                     try
                     {

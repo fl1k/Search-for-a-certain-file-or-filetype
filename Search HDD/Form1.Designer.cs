@@ -57,6 +57,7 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -202,21 +203,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -224,29 +225,30 @@
             // 
             this.hideUnhideConsoleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
-            this.hideToolStripMenuItem});
+            this.hideToolStripMenuItem,
+            this.clearToolStripMenuItem1});
             this.hideUnhideConsoleToolStripMenuItem.Name = "hideUnhideConsoleToolStripMenuItem";
-            this.hideUnhideConsoleToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.hideUnhideConsoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideUnhideConsoleToolStripMenuItem.Text = "Console";
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showToolStripMenuItem.Text = "Show";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
             // 
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideToolStripMenuItem.Text = "Hide";
             this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -316,6 +318,13 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // clearToolStripMenuItem1
+            // 
+            this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
+            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem1.Text = "Clear";
+            this.clearToolStripMenuItem1.Click += new System.EventHandler(this.clearToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +389,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem madeByFl1kToolStripMenuItem;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem1;
     }
 }
 

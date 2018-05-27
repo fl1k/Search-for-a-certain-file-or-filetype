@@ -103,40 +103,46 @@ namespace Search_HDD
             CheckForFormUpdates();
         }
 
-        private static void SearchDirectories(string path, string term, string copypath, string k)
+        private static void SearchDirectories(string path, string term, string copypath, string check, string ignore)
         {
             List<string> files = new List<string>();
-            if (k == "filename")
+            if (check == "filename")
             {
                 foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().Contains(term.ToLower())))
                 {
-                    try
+                    if (!(file.Contains(ignore)))
                     {
-                        files.Add(file);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Added {file}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            files.Add(file);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"Found {file}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                 }
             }
-            else if (k == "filetype")
+            else if (check == "filetype")
             {
                 foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().EndsWith(term.ToLower())))
                 {
-                    try
+                    if (!(file.Contains(ignore)))
                     {
-                        files.Add(file);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Added {file}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            files.Add(file);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"Found {file}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                 }
             }
@@ -144,7 +150,7 @@ namespace Search_HDD
             {
                 try
                 {
-                    SearchDirectories(subdir, term, copypath, k);
+                    SearchDirectories(subdir, term, copypath, check, ignore);
                 }
                 catch (Exception ex)
                 {
@@ -152,14 +158,13 @@ namespace Search_HDD
                     Console.WriteLine(ex.Message);
                 }
             }
-
+            Console.ResetColor();
             foreach (string file in files)
             {
                 string dest = Path.Combine(copypath, Path.GetFileName(file));
                 File.Copy(file, dest, true);
                 Console.WriteLine($"Copied {file}");
             }
-            Console.ResetColor();
         }
 
 
@@ -185,9 +190,9 @@ namespace Search_HDD
                 foreach (string file in listBox1.Items)
                 {
                     if (radioButton2.Checked)
-                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filename");
+                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filename", textBox1.Text);
                     else if (radioButton1.Checked)
-                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype");
+                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype", textBox1.Text);
                 }
 
                 Console.WriteLine("Done..");
@@ -251,6 +256,11 @@ namespace Search_HDD
         {
             listBox1.Items.Clear();
             radioBtnSelect.Checked = true;
+        }
+
+        private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Console.Clear();
         }
     }
 }

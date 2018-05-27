@@ -1,2 +1,2 @@
-# Search for a certain file or filetype
-# Keep in mind this also searches in recycle bin and if you search for .txt you'll get a ton of useless files
+# Search for a certain file or filetype in certain directories
+- Works both with and without admin permission, but without admin permission it won't find be able to search all the directories, but even with admin it won't be able to access system files

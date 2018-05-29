@@ -122,28 +122,44 @@ namespace Search_HDD
 
         public static void Copy(List<string> files, string copypath, string Date)
         {
-            if(!File.Exists(copypath + $"\\-----PathsSuccessfullyCopied__{Date}.log"))
-                File.Create(copypath + $"\\-----PathsSuccessfullyCopied__{Date}.log").Close();
-            if (!File.Exists(copypath + $"\\-----PathsUnsuccessfullyCopied__{Date}.log"))
-                File.Create(copypath + $"\\-----PathsUnsuccessfullyCopied__{Date}.log").Close();
+            if(!File.Exists(copypath + $"\\Paths Successfully Copied__{Date}.log"))
+                File.Create(copypath + $"\\Paths Successfully Copied__{Date}.log").Close();
+            if (!File.Exists(copypath + $"\\Paths Unsuccessfully Copied__{Date}.log"))
+                File.Create(copypath + $"\\Paths Unsuccessfully Copied__{Date}.log").Close();
 
             Directory.CreateDirectory(copypath + "\\Results");
-            StreamWriter sws = new StreamWriter(copypath + $"\\-----PathsSuccessfullyCopied__{Date}.log", true);
-            StreamWriter swf = new StreamWriter(copypath + $"\\-----PathsUnsuccessfullyCopied__{Date}.log", true);
+            StreamWriter sws = new StreamWriter(copypath + $"\\Paths Successfully Copied__{Date}.log", true);
+            StreamWriter swf = new StreamWriter(copypath + $"\\Paths Unsuccessfully Copied__{Date}.log", true);
 
             foreach (string file in files)
             {
                 string dest = Path.Combine(copypath + "\\Results", Path.GetFileName(file));
                 try
                 {
-                    File.Copy(file, dest, true);
-                    Console.WriteLine($"Copied {file}");
-                    sws.WriteLine(file);
+                    if (!File.Exists(dest))
+                    {
+                        File.Copy(file, dest, true);
+                        Console.WriteLine($"Copied {file}");
+                        sws.WriteLine(file);
+                    }
+                    else
+                    {
+                        for (int i = 1; i < 10000; i++)
+                        {
+                            if (!File.Exists(dest + "_" + i))
+                            {
+                                File.Copy(file, copypath + "\\Results\\" + Path.GetFileNameWithoutExtension(file) + "_" + i + Path.GetExtension(file), true);
+                                Console.WriteLine($"Copied {file}_{i}");
+                                sws.WriteLine(file);
+                                break;
+                            }
+                        }
+                    }
                 }
                 catch(Exception ex)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine($"Copied {file}");
+                    Console.WriteLine($"Failed copying {file}");
                     swf.WriteLine(ex.Message + $" ({file})");
                     Console.ResetColor();
                 }

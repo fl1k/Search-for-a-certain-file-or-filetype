@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 
+
 namespace Search_HDD
 {
     public partial class Form1 : Form
@@ -30,9 +31,14 @@ namespace Search_HDD
 
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        const int SW_HIDE = 0;
-        const int SW_SHOW = 5;
 
+        [DllImport("user32.dll")]
+        static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        bool cShowWindow = false;
         SearchDirectories SearchDirectories = new SearchDirectories();
         private void CheckForFormUpdates()
         {
@@ -107,10 +113,12 @@ namespace Search_HDD
         private void Form1_Load(object sender, EventArgs e)
         {
             radioBtnEndsWith.Checked = true;
-            ShowWindow(GetConsoleWindow(), SW_HIDE);
+            ShowWindow(GetConsoleWindow(), 0);
             CheckForFormUpdates();
             radioBtnEverything.Checked = true;
+            DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), 0xF060, 0x00000000);
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -121,7 +129,7 @@ namespace Search_HDD
             else
             {
                 string Date = String.Format("{0:yyyy-MM-dd-h-m-s}", DateTime.Now);
-                ShowWindow(GetConsoleWindow(), SW_SHOW);
+                ShowWindow(GetConsoleWindow(), 1);
                 foreach (string path in listBox1.Items)
                 {
                     if (radioBtnContains.Checked)
@@ -181,16 +189,6 @@ namespace Search_HDD
             this.Close();
         }
 
-        private void showToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowWindow(GetConsoleWindow(), SW_SHOW);
-        }
-
-        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowWindow(GetConsoleWindow(), SW_HIDE);
-        }
-
         private void madeByFl1kToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/fl1k");
@@ -205,6 +203,12 @@ namespace Search_HDD
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Console.Clear();
+        }
+
+        private void showToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cShowWindow = !cShowWindow;
+            ShowWindow(GetConsoleWindow(), Convert.ToInt32(cShowWindow));
         }
     }
 }

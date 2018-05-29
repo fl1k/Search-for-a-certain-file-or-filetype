@@ -48,17 +48,16 @@
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideUnhideConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.madeByFl1kToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioBtnStartsWith = new System.Windows.Forms.RadioButton();
             this.radioBtnEndsWith = new System.Windows.Forms.RadioButton();
             this.radioBtnContains = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.radioBtnStartsWith = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -204,21 +203,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -226,37 +225,29 @@
             // 
             this.hideUnhideConsoleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
-            this.hideToolStripMenuItem,
             this.clearToolStripMenuItem1});
             this.hideUnhideConsoleToolStripMenuItem.Name = "hideUnhideConsoleToolStripMenuItem";
-            this.hideUnhideConsoleToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.hideUnhideConsoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideUnhideConsoleToolStripMenuItem.Text = "Console";
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.showToolStripMenuItem.Text = "Show";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showToolStripMenuItem.Text = "Show / Hide";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
-            // 
-            // hideToolStripMenuItem
-            // 
-            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.hideToolStripMenuItem.Text = "Hide";
-            this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem1
             // 
             this.clearToolStripMenuItem1.Name = "clearToolStripMenuItem1";
-            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
+            this.clearToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem1.Text = "Clear";
             this.clearToolStripMenuItem1.Click += new System.EventHandler(this.clearToolStripMenuItem1_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -286,6 +277,16 @@
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             // 
+            // radioBtnStartsWith
+            // 
+            this.radioBtnStartsWith.AutoSize = true;
+            this.radioBtnStartsWith.Location = new System.Drawing.Point(23, 64);
+            this.radioBtnStartsWith.Name = "radioBtnStartsWith";
+            this.radioBtnStartsWith.Size = new System.Drawing.Size(132, 17);
+            this.radioBtnStartsWith.TabIndex = 4;
+            this.radioBtnStartsWith.Text = "FileName (BeginsWith)";
+            this.radioBtnStartsWith.UseVisualStyleBackColor = true;
+            // 
             // radioBtnEndsWith
             // 
             this.radioBtnEndsWith.AutoSize = true;
@@ -294,6 +295,7 @@
             this.radioBtnEndsWith.Name = "radioBtnEndsWith";
             this.radioBtnEndsWith.Size = new System.Drawing.Size(120, 17);
             this.radioBtnEndsWith.TabIndex = 2;
+            this.radioBtnEndsWith.TabStop = true;
             this.radioBtnEndsWith.Text = "FileType (EndsWith)";
             this.radioBtnEndsWith.UseVisualStyleBackColor = true;
             // 
@@ -325,16 +327,6 @@
             this.button3.Text = "Clear";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // radioBtnStartsWith
-            // 
-            this.radioBtnStartsWith.AutoSize = true;
-            this.radioBtnStartsWith.Location = new System.Drawing.Point(23, 64);
-            this.radioBtnStartsWith.Name = "radioBtnStartsWith";
-            this.radioBtnStartsWith.Size = new System.Drawing.Size(132, 17);
-            this.radioBtnStartsWith.TabIndex = 4;
-            this.radioBtnStartsWith.Text = "FileName (BeginsWith)";
-            this.radioBtnStartsWith.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -392,7 +384,6 @@
         private System.Windows.Forms.ToolStripMenuItem hideUnhideConsoleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioBtnEndsWith;
         private System.Windows.Forms.RadioButton radioBtnContains;

@@ -33,6 +33,7 @@ namespace Search_HDD
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
 
+        SearchDirectories SearchDirectories = new SearchDirectories();
         private void CheckForFormUpdates()
         {
             if (radioBtnEverything.Checked)
@@ -103,76 +104,10 @@ namespace Search_HDD
             CheckForFormUpdates();
         }
 
-        private static void SearchDirectories(string path, string term, string copypath, string check, string ignore)
-        {
-            List<string> files = new List<string>();
-            if (check == "filename")
-            {
-                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().Contains(term.ToLower())))
-                {
-                    if (!(file.Contains(ignore)))
-                    {
-                        try
-                        {
-                            files.Add(file);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($"Found {file}");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
-                }
-            }
-            else if (check == "filetype")
-            {
-                foreach (string file in Directory.EnumerateFiles(path).Where(x => x.ToLower().EndsWith(term.ToLower())))
-                {
-                    if (!(file.Contains(ignore)))
-                    {
-                        try
-                        {
-                            files.Add(file);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($"Found {file}");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
-                }
-            }
-            foreach (string subdir in Directory.EnumerateDirectories(path))
-            {
-                try
-                {
-                    SearchDirectories(subdir, term, copypath, check, ignore);
-                }
-                catch (Exception ex)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine(ex.Message);
-                }
-            }
-            Console.ResetColor();
-            foreach (string file in files)
-            {
-                string dest = Path.Combine(copypath, Path.GetFileName(file));
-                File.Copy(file, dest, true);
-                Console.WriteLine($"Copied {file}");
-            }
-        }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            radioButton1.Checked = true;
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, SW_HIDE);
+            radioBtnEndsWith.Checked = true;
+            ShowWindow(GetConsoleWindow(), SW_HIDE);
             CheckForFormUpdates();
             radioBtnEverything.Checked = true;
         }
@@ -185,14 +120,25 @@ namespace Search_HDD
             }
             else
             {
-                var handle = GetConsoleWindow();
-                ShowWindow(handle, SW_SHOW);
-                foreach (string file in listBox1.Items)
+                string Date = String.Format("{0:yyyy-MM-dd-h-m-s}", DateTime.Now);
+                ShowWindow(GetConsoleWindow(), SW_SHOW);
+                foreach (string path in listBox1.Items)
                 {
-                    if (radioButton2.Checked)
-                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filename", textBox1.Text);
-                    else if (radioButton1.Checked)
-                        SearchDirectories(file, textBox2.Text, textBox1.Text, "filetype", textBox1.Text);
+                    if (radioBtnContains.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.FileNameContains(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
+                    }
+                    else if (radioBtnEndsWith.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.EndsWith(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
+                    }
+                    else if (radioBtnStartsWith.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.StartsWith(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
+                    }
                 }
 
                 Console.WriteLine("Done..");
@@ -237,14 +183,12 @@ namespace Search_HDD
 
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, SW_SHOW);
+            ShowWindow(GetConsoleWindow(), SW_SHOW);
         }
 
         private void hideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, SW_HIDE);
+            ShowWindow(GetConsoleWindow(), SW_HIDE);
         }
 
         private void madeByFl1kToolStripMenuItem_Click(object sender, EventArgs e)

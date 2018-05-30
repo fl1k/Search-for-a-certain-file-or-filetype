@@ -33,12 +33,14 @@ namespace Search_HDD
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
-        static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
-
-        [DllImport("user32.dll")]
         static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
+        [DllImport("user32.dll")]
+        private static extern int EnableMenuItem(IntPtr tMenu, int targetItem, int targetStatus);
+
         bool cShowWindow = false;
+        bool Copy = false;
+
         SearchDirectories SearchDirectories = new SearchDirectories();
         private void CheckForFormUpdates()
         {
@@ -56,6 +58,7 @@ namespace Search_HDD
                 btnOpen.Enabled = true;
             }
         }
+
         private void pathlbcheck()
         {
             bool contains = false;
@@ -92,6 +95,7 @@ namespace Search_HDD
                 }
             }
         }
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             pathlbcheck();
@@ -116,42 +120,6 @@ namespace Search_HDD
             ShowWindow(GetConsoleWindow(), 0);
             CheckForFormUpdates();
             radioBtnEverything.Checked = true;
-            DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), 0xF060, 0x00000000);
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (listBox1.Items.Count == 0 || textBox2.TextLength == 0 || textBox1.TextLength == 0 || !(Directory.Exists(textBox1.Text)))
-            {
-                MessageBox.Show("Please check input boxes for mistakes. \n(Copy path isn't valid / No term / No search path)", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                string Date = String.Format("{0:yyyy-MM-dd-h-m-s}", DateTime.Now);
-                ShowWindow(GetConsoleWindow(), 1);
-                foreach (string path in listBox1.Items)
-                {
-                    if (radioBtnContains.Checked)
-                    {
-                        List<string> toCopy = SearchDirectories.FileNameContains(path, textBox2.Text, textBox1.Text);
-                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
-                    }
-                    else if (radioBtnEndsWith.Checked)
-                    {
-                        List<string> toCopy = SearchDirectories.EndsWith(path, textBox2.Text, textBox1.Text);
-                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
-                    }
-                    else if (radioBtnStartsWith.Checked)
-                    {
-                        List<string> toCopy = SearchDirectories.StartsWith(path, textBox2.Text, textBox1.Text);
-                        SearchDirectories.Copy(toCopy, textBox1.Text, Date);
-                    }
-                }
-
-                Console.WriteLine("Done..");
-                Console.WriteLine("Closing the console will also close the form, if you want to close it go to File > Console > Hide");
-            }
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -209,6 +177,43 @@ namespace Search_HDD
         {
             cShowWindow = !cShowWindow;
             ShowWindow(GetConsoleWindow(), Convert.ToInt32(cShowWindow));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count == 0 || textBox2.TextLength == 0 || textBox1.TextLength == 0 || !(Directory.Exists(textBox1.Text)))
+                MessageBox.Show("Please check input boxes for mistakes. \n(Copy path isn't valid / No term / No search path)", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show($"Log file with paths will be created, do you want the files to be copied to {textBox1.Text}\\Results?", "File Searcher", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                    Copy = true;
+                else if (dialogResult == DialogResult.No)
+                    Copy = false;
+
+                string Date = String.Format("{0:yyyy-MM-dd-h-m-s}", DateTime.Now);
+                ShowWindow(GetConsoleWindow(), 1);
+                foreach (string path in listBox1.Items)
+                {
+                    if (radioBtnContains.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.FileNameContains(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date, Copy);
+                    }
+                    else if (radioBtnEndsWith.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.EndsWith(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date, Copy);
+                    }
+                    else if (radioBtnStartsWith.Checked)
+                    {
+                        List<string> toCopy = SearchDirectories.StartsWith(path, textBox2.Text, textBox1.Text);
+                        SearchDirectories.Copy(toCopy, textBox1.Text, Date, Copy);
+                    }
+                }
+                Console.WriteLine("\nDone..");
+                Console.WriteLine("Closing the console will also close the form, if you want to close it go to File > Console > Hide");
+            }
         }
     }
 }

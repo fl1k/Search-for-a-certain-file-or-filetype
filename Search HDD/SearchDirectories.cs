@@ -120,9 +120,9 @@ namespace Search_HDD
             return files;
         }
 
-        public static void Copy(List<string> files, string copypath, string Date)
+        public static void Copy(List<string> files, string copypath, string Date, bool Copy)
         {
-            if(!File.Exists(copypath + $"\\Paths Successfully Copied__{Date}.log"))
+            if (!File.Exists(copypath + $"\\Paths Successfully Copied__{Date}.log"))
                 File.Create(copypath + $"\\Paths Successfully Copied__{Date}.log").Close();
             if (!File.Exists(copypath + $"\\Paths Unsuccessfully Copied__{Date}.log"))
                 File.Create(copypath + $"\\Paths Unsuccessfully Copied__{Date}.log").Close();
@@ -138,25 +138,28 @@ namespace Search_HDD
                 {
                     if (!File.Exists(dest))
                     {
-                        File.Copy(file, dest, true);
-                        Console.WriteLine($"Copied {file}");
+                        if (Copy == true)
+                        {
+                            File.Copy(file, dest, true);
+                            Console.WriteLine($"Copied {file}");
+                        }
                         sws.WriteLine(file);
                     }
                     else
                     {
                         for (int i = 1; i < 10000; i++)
                         {
-                            if (!File.Exists(dest + "_" + i))
+                            if (!File.Exists(copypath + "\\Results\\" + Path.GetFileNameWithoutExtension(file) + "_" + i + Path.GetExtension(file)))
                             {
                                 File.Copy(file, copypath + "\\Results\\" + Path.GetFileNameWithoutExtension(file) + "_" + i + Path.GetExtension(file), true);
-                                Console.WriteLine($"Copied {file}_{i}");
+                                Console.WriteLine($"Copied {file}");
                                 sws.WriteLine(file);
                                 break;
                             }
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine($"Failed copying {file}");

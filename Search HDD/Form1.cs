@@ -185,11 +185,13 @@ namespace Search_HDD
                 MessageBox.Show("Please check input boxes for mistakes. \n(Copy path isn't valid / No term / No search path)", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                DialogResult dialogResult = MessageBox.Show($"Log file with paths will be created, do you want the files to be copied to {textBox1.Text}\\Results?", "File Searcher", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show($"Log file with paths will be created, do you want the files to be copied to {textBox1.Text}\\Results?", "File Searcher", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                     Copy = true;
                 else if (dialogResult == DialogResult.No)
                     Copy = false;
+                else
+                { }
 
                 string Date = String.Format("{0:yyyy-MM-dd-h-m-s}", DateTime.Now);
                 ShowWindow(GetConsoleWindow(), 1);
